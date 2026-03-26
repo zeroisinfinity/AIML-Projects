@@ -1,0 +1,40 @@
+NLP -- 2 TYPES
+
+1. NLU - N L understanding
+2. NLG - N L Generator
+
+-----------------------------------------------------------------------------------
+
+*Steps
+1. Dataset - test inp , corpus for BoW
+2. Cleaning - same format prolly (lowercase)
+3. Removing stopwords & stemming - (running --> run , I am running --> run)
+4. Tokenization - (split on whitespace)
+5. Normalization -
+
+-----------------------------------------------------------------------------------
+
+3 - 
+Stopword Removal: Deletes common words (like "the", "is", "a") that appear frequently but carry no unique meaning.
+
+Stemming: Chops off the ends of words to find the "root" (e.g., "jumping" and "jumps" both become "jump").
+
+-----------------------------------------------------------------------------------
+
+ D C S T N (Like descent ka shortform)
+  -----------------------------------------------------------------------------------
+ Step 		Process	Document 		1	Document 2	Document 3 -----------------------------------------------------------------------------------
+1		Dataset (Raw)			"I am running"	"He is running"	"The runner runs"
+-----------------------------------------------------------------------------------
+2		Cleaning (Lower)		"i am running"	"he is running"	"the runner  runs"
+-----------------------------------------------------------------------------------
+3		Stopwords/Stemming		"run"	"run"	"runner run"
+-----------------------------------------------------------------------------------
+4		Tokenization			['run']	['run']	['runner', 'run'] -----------------------------------------------------------------------------------
+ 
+ bag of words approach BoW - 5 words repeat so put in bulk -- unique
+ At its core, BoW is a statistical representation of a document based on the frequency of the words it contains. It is called a "bag" because it discards all information about word order, grammar, and sentence structure, focusing only on whether a word appears and how often.
+ The Bag-of-Words (BoW) approach is a simple and widely used technique in Natural Language Processing (NLP) to represent text data as numerical vectors. It treats a document as an unordered "bag" or collection of its words, focusing only on the frequency of each word while completely ignoring its order, grammar, and context
+
+-----------------------------------------------------------------------------------
+ 

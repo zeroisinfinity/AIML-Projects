@@ -1,0 +1,6 @@
+cleaning(remvoing null duplicates etc)
+data integartion (schema matching , deduplicatin)
+data ttransfrm (norm,scaling, encoder,featurw engg)
+--+-- reduction (keep only imp) -- PCA - dimensionality redcution, sampling .
+
+

@@ -1,0 +1,33 @@
+# --- Python & Virtual Environments ---
+venv/
+env/
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- IDEs & Editors ---
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- Data & Large Files (ML Specific) ---
+*.csv
+*.json
+*.h5
+*.pkl
+*.pth
+*.onnx
+*.weights
+*.bin
+datasets/
+data/
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db

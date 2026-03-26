@@ -1,0 +1,28 @@
+5 types
+
+1. supervised - labelled
+a. regression - continuous prediction
+b. classification - output is in categpry (spam/not) , (tank/not)
+
+2. Unsupervised
+a. clustering - customer segmentation
+b. dimensionality redn
+c. association rule learning (recommend, buy milk so buy bread too)
+
+3. Reinforcement
+agent does action gets reward
+a. model based RL - agent plans b4 acting
+b. model pre RL - trail n error
+c. policy based learning - self driving car
+d. value based learning - chess - cal value b4 acting
+
+4. Semi supervised learning - 100 label , 900 unlabelbutbut
+1. self training - chatgpt
+2. co training 2 - models learn together
+3. graph based learning
+
+5. Self-Supervised Learning
+Model creates its own labels from raw data (hides part of data, tries to predict it)
+a. generative - predict next word/pixel (GPT)
+b. contrastive - compare two versions of same image
+c. pretext tasks - solve puzzles (un-rotate image)
