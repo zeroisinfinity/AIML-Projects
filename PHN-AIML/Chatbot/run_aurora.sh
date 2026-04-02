@@ -7,4 +7,4 @@
 # source venv/bin/activate
 
 # 3. Run the Streamlit app
-streamlit run aurora.py
+streamlit run aurora3.py

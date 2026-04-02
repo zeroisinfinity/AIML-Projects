@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import streamlit as st
 from google import genai
 from openai import OpenAI
-
+from streamlit_mic_recorder import mic_recorder
 
 # setup .env file path general to any os
 dotenv_path = os.path.join(os.getcwd(),'config','.env')
