@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore")
 # LOAD VOICE SAMPLE
 # =====================
 print("📂 Loading voice_sample.wav...")
-audio_raw, sr = librosa.load("Bheegi.mp3", sr=22050)
+audio_raw, sr = librosa.load("voice_sample.wav", sr=22050)
 if audio_raw.dtype != np.float32:
     audio_raw = audio_raw.astype(np.float32)
     if np.max(np.abs(audio_raw)) > 1.0:
@@ -30,10 +30,10 @@ if len(audio_raw.shape) > 1:
 if sr != 22050:
     audio_raw = librosa.resample(audio_raw, orig_sr=sr, target_sr=22050)
 
-SAMPLE_RATE   = 220500
+SAMPLE_RATE   = 22050
 OUTPUT_DEVICE = 13
-CHUNK_SIZE    = 163840   # larger = smoother
-CROSSFADE     = 20480    # samples to blend between chunks
+CHUNK_SIZE    = 1024   # larger = smoother
+CROSSFADE     = 256    # samples to blend between chunks
 
 print(f"✅ Loaded — {len(audio_raw)/SAMPLE_RATE:.1f} seconds")
 

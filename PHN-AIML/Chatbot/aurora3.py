@@ -6,9 +6,7 @@ from google.genai import types
 from openai import OpenAI
 from streamlit_mic_recorder import mic_recorder
 
-# -------------------------------
-# 1. Setup & Configuration
-# -------------------------------
+
 dotenv_path = os.path.join(os.getcwd(), 'config', '.env')
 load_dotenv(dotenv_path=dotenv_path)
 
@@ -31,9 +29,6 @@ llama_client = OpenAI(
 st.set_page_config(page_title='AURORA Chatbot', page_icon='🤖')
 st.title('AURORA: 2026 Stable Build')
 
-# -------------------------------
-# 2. Sidebar Settings
-# -------------------------------
 with st.sidebar:
     st.title("Model Hub")
     model_choice = st.selectbox('Choose the Brain:', [
@@ -56,9 +51,7 @@ with st.sidebar:
         st.session_state.last_audio_ts = None
         st.rerun()
 
-# -------------------------------
-# 3. Session State & History
-# -------------------------------
+
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 if 'last_audio_ts' not in st.session_state:
@@ -69,9 +62,7 @@ for message in st.session_state.messages:
     with st.chat_message(message['role']):
         st.markdown(message['content'])
 
-# -------------------------------
-# 4. Input Handling (The "Ear")
-# -------------------------------
+
 prompt = None
 
 # Process Voice only if it's a NEW recording
@@ -95,9 +86,6 @@ chat_input = st.chat_input('What is on your mind?')
 if chat_input:
     prompt = chat_input
 
-# -------------------------------
-# 5. Response Generation (The "Brain")
-# -------------------------------
 if prompt:
     with st.chat_message('user'):
         st.markdown(prompt)

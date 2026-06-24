@@ -1,4 +1,3 @@
-# =============================================================================
 # app.py  —  QuantML entry point
 # Run with:  streamlit run app.py
 #
@@ -13,14 +12,13 @@
 #   ui/styles.py         CSS injection
 #   ui/sidebar.py        Sidebar widgets → config dict
 #   ui/charts.py         Plotly figure builders
-# =============================================================================
 
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))   # ensure local imports work
 
 import streamlit as st
 
-# ── Page config — must be first Streamlit call ────────────────────────────────
+# ── Page config
 st.set_page_config(
     page_title="QuantML · Stock Predictor",
     page_icon="📈",
@@ -28,7 +26,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Module imports ────────────────────────────────────────────────────────────
 from ui.styles  import inject_styles
 from ui.sidebar import render_sidebar
 from ui         import charts
@@ -37,10 +34,9 @@ from data.features import build_features
 from models.trainer   import train
 from models.evaluator import evaluate
 
-# ── Styles ────────────────────────────────────────────────────────────────────
+
 inject_styles()
 
-# ── Sidebar → config ──────────────────────────────────────────────────────────
 cfg = render_sidebar()
 ticker      = cfg['ticker']
 start_date  = cfg['start_date']
@@ -49,7 +45,6 @@ train_split = cfg['train_split']
 conf_thresh = cfg['conf_thresh']
 n_est       = cfg['n_estimators']
 
-# ── Page header ───────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div style="padding:12px 0 6px;">
   <div style="font-size:0.72rem;font-weight:700;color:#58a6ff;
@@ -70,7 +65,6 @@ st.markdown(f"""
 <hr class="div-line">
 """, unsafe_allow_html=True)
 
-# ── Live quote badge ──────────────────────────────────────────────────────────
 quote = get_live_quote(ticker)
 last  = quote.get('last_price') or 0
 prev  = quote.get('prev_close') or last
@@ -115,7 +109,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Load + feature-engineer data ──────────────────────────────────────────────
+
 with st.spinner(f"Fetching data for {ticker}…"):
     raw = fetch_ohlcv(ticker, start_date)
 
@@ -226,3 +220,121 @@ Fewer trades, higher win rate. Precision = TP / (TP + FP).</div>
 <code>Sharpe = (μ_daily / σ_daily) × √252</code><br>
 Max drawdown = worst peak-to-trough loss on equity curve.</div>
 """, unsafe_allow_html=True)
+
+
+# =========================
+# FULL SYSTEM CHEAT SHEET
+# =========================
+
+# OHLCV = Open, High, Low, Close, Volume
+# Used in: fetch_ohlcv()
+# Why: raw stock market data
+
+# RSI = Relative Strength Index
+# Used in: build_features()
+# Why: detects overbought (>70) / oversold (<30)
+
+# MACD = Moving Average Convergence Divergence
+# Used in: build_features()
+# Why: trend + momentum detection
+
+# EMA = Exponential Moving Average
+# Used in: MACD
+# Why: faster reaction to recent prices
+
+# SMA = Simple Moving Average
+# Used in: Bollinger Bands
+# Why: baseline trend
+
+# Bollinger Bands (BB)
+# Used in: build_features()
+# Why: volatility + price extremes
+
+# Log Return = ln(Pt / Pt-1)
+# Used in: features
+# Why: makes data stationary for ML
+
+# Momentum = Price change over time
+# Used in: features
+# Why: captures speed of movement
+
+# ML = Machine Learning
+# Used in: entire pipeline
+# Why: learn patterns from historical data
+
+# XGBoost = Extreme Gradient Boosting
+# Used in: train()
+# Why: best for tabular + noisy financial data
+
+# RF = Random Forest
+# Used in: optional model
+# Why: reduces overfitting via multiple trees
+
+# GBM = Gradient Boosting Machine
+# Used in: optional model
+# Why: improves errors sequentially
+
+# Target = (Close[t+1] > Close[t])
+# Used in: training
+# Why: predict next-day direction (UP/DOWN)
+
+# Feature = input variables (RSI, MACD, etc.)
+# Used in: X = df[FEATURES]
+# Why: inputs to model
+
+# Prediction = model output probability
+# Used in: predict_proba()
+# Why: probability of price going UP
+
+# Confidence Threshold = probability cutoff
+# Used in: evaluator
+# Why: trade only when model is confident
+
+# Accuracy = correct / total predictions
+# Used in: evaluation
+# Why: overall correctness
+
+# Precision = TP / (TP + FP)
+# Used in: evaluation
+# Why: how many predicted UP are correct
+
+# Recall = TP / (TP + FN)
+# Used in: evaluation
+# Why: how many actual UP are captured
+
+# Sharpe Ratio = (mean return / std dev) * sqrt(252)
+# Used in: evaluation
+# Why: risk-adjusted return
+
+# Max Drawdown = worst peak-to-trough loss
+# Used in: evaluation
+# Why: measures biggest loss risk
+
+# API = Application Programming Interface
+# Used in: yfinance
+# Why: fetch market data
+
+# Semi Real-time = slightly delayed data
+# Used in: get_live_quote()
+# Why: latest price (not tick-level)
+
+# Backtest = testing strategy on past data
+# Used in: evaluator
+# Why: validate model performance
+
+# Strategy Return = prediction * return
+# Used in: evaluation
+# Why: profit from model trades
+
+
+# =========================
+# FLOW SUMMARY
+# =========================
+
+# Data (OHLCV from API)
+# → Features (RSI, MACD, etc.)
+# → Model (XGBoost / RF / GBM)
+# → Prediction (probability)
+# → Filter (confidence threshold)
+# → Trades
+# → Metrics (Sharpe, Drawdown, Accuracy)

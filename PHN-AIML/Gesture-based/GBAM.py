@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore")
 # LOAD VOICE SAMPLE
 # =====================
 print("📂 Loading voice_sample.wav...")
-sr, audio_raw = wav.read("voice_sample.wav")
+sr, audio_raw = wav.read("Sooraj.wav")
 
 if audio_raw.dtype != np.float32:
     audio_raw = audio_raw.astype(np.float32)
@@ -33,8 +33,8 @@ if sr != 22050:
 
 SAMPLE_RATE   = 22050
 OUTPUT_DEVICE = 13
-CHUNK_SIZE    = 16384   # larger = smoother
-CROSSFADE     = 2048    # samples to blend between chunks
+CHUNK_SIZE    = 80000   # larger = smoother
+CROSSFADE     = 10000    # samples to blend between chunks
 
 print(f"✅ Loaded — {len(audio_raw)/SAMPLE_RATE:.1f} seconds")
 
